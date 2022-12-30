@@ -1,9 +1,13 @@
-DROP DATABASE IF EXISTS yarn_shop ;
+DROP DATABASE IF EXISTS yarn_shop;
 CREATE DATABASE yarn_shop;
 USE yarn_shop;
 CREATE TABLE category (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255)
+);
+CREATE TABLE shipping_fee (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fee DOUBLE
 );
 CREATE TABLE brand (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -27,6 +31,7 @@ CREATE TABLE product (
     is_delete INT,
     category_id INT,
     discount_id INT,
+    weight INT,
     FOREIGN KEY (category_id)
         REFERENCES category (id),
     FOREIGN KEY (brand_id)
@@ -36,7 +41,7 @@ CREATE TABLE product (
 );
 CREATE TABLE image (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    image_name VARCHAR(255),
+    image_url VARCHAR(255),
     product_id INT,
     is_delete INT,
     FOREIGN KEY (product_id)
@@ -108,10 +113,13 @@ CREATE TABLE `order` (
     date_created VARCHAR(255),
     customer_id INT,
     shipping_information_id INT,
+    shipping_fee_id INT,
     FOREIGN KEY (customer_id)
         REFERENCES customer (id),
     FOREIGN KEY (shipping_information_id)
-        REFERENCES shipping_information (id)
+        REFERENCES shipping_information (id),
+    FOREIGN KEY (shipping_fee_id)
+        REFERENCES shipping_fee (id)
 );
 CREATE TABLE order_detail (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -124,5 +132,6 @@ CREATE TABLE order_detail (
     FOREIGN KEY (product_id)
         REFERENCES product (id)
 );
+
 
 
