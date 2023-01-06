@@ -20,32 +20,37 @@ CREATE TABLE discount (
     end_date VARCHAR(255),
     is_delete INT
 );
+CREATE TABLE yarn_group (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(2),
+    description VARCHAR(255)
+);
 CREATE TABLE product (
     id INT PRIMARY KEY AUTO_INCREMENT,
     origin VARCHAR(255),
-    color VARCHAR(255),
-    size VARCHAR(255),
-    quantity VARCHAR(255),
     brand_id INT,
     descriptions TEXT,
     is_delete INT,
     category_id INT,
     discount_id INT,
     weight INT,
+    yarn_group_id INT,
     FOREIGN KEY (category_id)
         REFERENCES category (id),
     FOREIGN KEY (brand_id)
         REFERENCES brand (id),
     FOREIGN KEY (discount_id)
-        REFERENCES discount (id)
+        REFERENCES discount (id),
+    FOREIGN KEY (yarn_group_id)
+        REFERENCES yarn_group (id)
 );
 CREATE TABLE image (
     id INT PRIMARY KEY AUTO_INCREMENT,
     image_url VARCHAR(255),
-    product_id INT,
+    product_detail_id INT,
     is_delete INT,
-    FOREIGN KEY (product_id)
-        REFERENCES product (id)
+    FOREIGN KEY (product_detail_id)
+        REFERENCES product_detail(id)
 );
 CREATE TABLE account (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -70,7 +75,6 @@ CREATE TABLE customer_type (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255)
 );
-
 CREATE TABLE customer (
     id INT PRIMARY KEY AUTO_INCREMENT,
     avatar VARCHAR(255),
@@ -81,12 +85,45 @@ CREATE TABLE customer (
     id_card VARCHAR(255),
     phone VARCHAR(255),
     account_id INT,
-    address VARCHAR(255),
+    address_detail VARCHAR(255),
+    city VARCHAR(255),
+    ward VARCHAR(255),
+    district VARCHAR(255),
+    country VARCHAR(255),
     customer_type_id INT,
     FOREIGN KEY (account_id)
         REFERENCES account (id),
     FOREIGN KEY (customer_type_id)
         REFERENCES customer_type (id)
+);
+CREATE TABLE voucher (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    voucher_code INT,
+    discount_amount DOUBLE,
+    customer_id INT,
+    start_date VARCHAR(255),
+    end_date VARCHAR(255),
+    is_delete INT,
+    FOREIGN KEY (customer_id)
+        REFERENCES customer (id)
+);
+CREATE TABLE employee (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    avatar VARCHAR(255),
+    birthday VARCHAR(255),
+    email VARCHAR(255),
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    id_card VARCHAR(255),
+    phone VARCHAR(255),
+    account_id INT,
+    address_detail VARCHAR(255),
+    city VARCHAR(255),
+    ward VARCHAR(255),
+    district VARCHAR(255),
+    country VARCHAR(255),
+    FOREIGN KEY (account_id)
+        REFERENCES account (id)
 );
 CREATE TABLE cart_item (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,7 +135,6 @@ CREATE TABLE cart_item (
     FOREIGN KEY (customer_id)
         REFERENCES customer (id)
 );
-
 CREATE TABLE shipping_information (
     id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT,
@@ -106,7 +142,7 @@ CREATE TABLE shipping_information (
     shipping_receiver VARCHAR(255),
     receiver_phone VARCHAR(255)
 );
-CREATE TABLE `order` (
+CREATE TABLE payment (
     id INT PRIMARY KEY AUTO_INCREMENT,
     payment_status INT,
     total_bill DOUBLE,
@@ -124,11 +160,20 @@ CREATE TABLE `order` (
 CREATE TABLE order_detail (
     id INT PRIMARY KEY AUTO_INCREMENT,
     is_delete INT,
-    order_id INT,
-    product_id INT,
+    payment_id INT,
+    product_detail_id INT,
     quantity INT,
-    FOREIGN KEY (order_id)
-        REFERENCES `order` (id),
+    FOREIGN KEY (payment_id)
+        REFERENCES payment (id),
+    FOREIGN KEY (product_detail_id)
+        REFERENCES product_detail (id)
+);
+CREATE TABLE product_detail (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id VARCHAR(50),
+    color VARCHAR(50),
+    quantity INT,
+    delete_status BIT,
     FOREIGN KEY (product_id)
         REFERENCES product (id)
 );
