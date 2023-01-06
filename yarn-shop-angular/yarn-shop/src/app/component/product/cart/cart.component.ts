@@ -38,6 +38,7 @@ export class CartComponent implements OnInit {
     proQty.on('click', '.qtybtn', function () {
       var $button = $(this);
       var oldValue = $button.parent().find('input').val();
+      console.log(oldValue)
       if ($button.hasClass('inc')) {
         // @ts-ignore
         var newVal = parseFloat(oldValue) + 1;

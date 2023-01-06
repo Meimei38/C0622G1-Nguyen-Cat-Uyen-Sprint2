@@ -28,7 +28,7 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/jquery.countdown/jquery.countdown.js"
+              "./assets/js/jquery.countdown.min.js"
             ]
           },
           "configurations": {
