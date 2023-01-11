@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row col-12">
+    <div class="container-fluid">
+        <div class="form-structor">
+          <div class="signup">
+            <h2 class="form-title font-weight-bold" id="signup"><span>or</span>Sign up</h2>
+            <div class="form-holder">
+              <div>
+                <input type="text" class="input" placeholder="Name"/>
+              </div>
+              <div>
+                <input type="email" class="input" placeholder="Email"/>
+              </div>
+              <div>
+                <input type="password" class="input" placeholder="Password"/>
+              </div>
+            </div>
+            <button class="submit-btn">Sign up</button>
+            <button class="submit-btn back-btn"><a>Back to Homepage</a></button>
+          </div>
+          <div class="login slide-up">
+            <form [formGroup]="rfLogin" (ngSubmit)="login()">
+            <div class="center">
+              <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+              <div class="form-holder">
+                <input type="email" class="input" formControlName="username" placeholder="Username"/>
+                <input type="password" class="input" formControlName="password" placeholder="Password"/>
+              </div>
+              <button type="submit" class="submit-btn">Log in</button>
+              <button class="submit-btn back-btn"><a href="#">Back to Homepage</a></button>
+            </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!--End login form-->
+</div>
