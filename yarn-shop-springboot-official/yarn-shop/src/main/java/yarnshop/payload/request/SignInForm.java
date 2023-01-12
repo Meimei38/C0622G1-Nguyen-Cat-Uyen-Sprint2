@@ -1,4 +1,4 @@
-package com.project.be.payload.request;
+package yarnshop.payload.request;
 
 public class SignInForm {
 

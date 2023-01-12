@@ -1,6 +1,4 @@
-package yarnshop.model.customer;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+package com.example.demo.model.customer;
 
 import javax.persistence.*;
 import java.util.Set;

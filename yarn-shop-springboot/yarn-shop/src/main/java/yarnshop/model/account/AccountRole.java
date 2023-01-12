@@ -1,5 +1,7 @@
 package yarnshop.model.account;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity

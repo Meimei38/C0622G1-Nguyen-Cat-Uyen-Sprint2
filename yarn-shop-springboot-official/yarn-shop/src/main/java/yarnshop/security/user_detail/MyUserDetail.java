@@ -1,11 +1,12 @@
-package com.project.be.security.user_detail;
+package yarnshop.security.user_detail;
 
 
-import com.project.be.model.account.Account;
-import com.project.be.model.account.AccountRole;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import yarnshop.model.account.Account;
+import yarnshop.model.account.AccountRole;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +24,7 @@ public class MyUserDetail implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
-        for(AccountRole x : account.getAccountRoleSet()) {
+        for(AccountRole x : account.getAccountRoles()) {
             grantedAuthorityList.add(new SimpleGrantedAuthority(x.getRole().getName()));
         }
 

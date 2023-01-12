@@ -1,4 +1,4 @@
-package com.project.be.util;
+package yarnshop.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -8,7 +8,7 @@ public class PasswordEncoder {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        System.out.println(passwordEncoder.encode("iuNhi"));
+        System.out.println(passwordEncoder.encode("123456"));
 
     }
 

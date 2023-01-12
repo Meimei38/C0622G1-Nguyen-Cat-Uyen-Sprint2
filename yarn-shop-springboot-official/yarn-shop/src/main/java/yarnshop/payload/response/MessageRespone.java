@@ -1,4 +1,4 @@
-package com.project.be.payload.response;
+package yarnshop.payload.response;
 
 public class MessageRespone {
 

@@ -1,12 +1,11 @@
-package com.project.be.security.jwt;
-
-import com.project.be.security.user_detail.MyUserDetail;
+package yarnshop.security.jwt;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import yarnshop.security.user_detail.MyUserDetail;
 
 import java.util.Date;
 

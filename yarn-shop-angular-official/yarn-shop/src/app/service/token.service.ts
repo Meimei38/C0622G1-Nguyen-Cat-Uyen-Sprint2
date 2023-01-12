@@ -44,8 +44,10 @@ export class TokenService {
 
   public getUser(): string {
     if (localStorage.getItem(USER_KEY) !== null) {
+      console.log(localStorage.getItem(USER_KEY));
       return localStorage.getItem(USER_KEY);
     } else {
+      console.log(localStorage.getItem(USER_KEY));
       return sessionStorage.getItem(USER_KEY);
     }
   }

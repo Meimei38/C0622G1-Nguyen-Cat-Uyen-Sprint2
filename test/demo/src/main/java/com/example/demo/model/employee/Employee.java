@@ -1,7 +1,8 @@
-package yarnshop.model.employee;
+package com.example.demo.model.employee;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import yarnshop.model.account.Account;
+
+
+import com.example.demo.model.account.Account;
 
 import javax.persistence.*;
 

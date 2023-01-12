@@ -11,6 +11,8 @@ import { HeaderComponent } from './component/layout/header/header.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ShopComponent } from './component/shop/shop.component';
+import { CheckoutComponent } from './component/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {HttpClientModule} from "@angular/common/http";
     ProductDetailComponent,
     LogInComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ShopComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

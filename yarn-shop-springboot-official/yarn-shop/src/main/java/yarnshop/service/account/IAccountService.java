@@ -1,9 +1,19 @@
-package com.project.be.service.account;
+package yarnshop.service.account;
 
-import com.project.be.model.account.Account;
-import com.project.be.service.IGeneralService;
 
-public interface IAccountService extends IGeneralService<Account> {
+import yarnshop.model.account.Account;
+
+import java.util.Optional;
+
+public interface IAccountService {
+
+    Iterable<Account> findAll();
+
+    Optional<Account> findById(Integer id);
+
+    Account save(Account account);
+
+    void remove(Integer id);
 
     Account findAccountByUserName(String userName);
 

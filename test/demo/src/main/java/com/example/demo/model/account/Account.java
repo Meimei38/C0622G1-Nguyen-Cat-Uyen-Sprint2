@@ -1,7 +1,6 @@
-package yarnshop.model.account;
-
-import yarnshop.model.customer.Customer;
-import yarnshop.model.employee.Employee;
+package com.example.demo.model.account;
+import com.example.demo.model.customer.Customer;
+import com.example.demo.model.employee.Employee;
 
 import javax.persistence.*;
 import java.util.Set;

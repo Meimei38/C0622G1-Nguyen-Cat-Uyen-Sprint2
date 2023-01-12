@@ -83,19 +83,22 @@
     /*-----------------------
         Hero Slider
     ------------------------*/
+  $(window).on('load',function () {
     $(".hero__slider").owlCarousel({
-        loop: true,
-        margin: 0,
-        items: 1,
-        dots: false,
-        nav: true,
-        navText: ["<span class='arrow_left'><span/>", "<span class='arrow_right'><span/>"],
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: false
+      loop: true,
+      margin: 0,
+      items: 1,
+      dots: false,
+      nav: true,
+      navText: ["<span class='arrow_left'><span/>", "<span class='arrow_right'><span/>"],
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn',
+      smartSpeed: 1200,
+      autoHeight: false,
+      autoplay: false
     });
+  })
+
 
     /*--------------------------
         Select
@@ -146,7 +149,7 @@
 
     // Uncomment below and use your date //
 
-    var timerdate = "2023/01/08"
+    var timerdate = "2023/01/14"
 
     $("#countdown").countdown(timerdate, function (event) {
       $(this).html(event.strftime("<div class='cd-item'><span>%D</span> <p>Days</p> </div>" + "<div class='cd-item'><span>%H</span> <p>Hours</p> </div>" + "<div class='cd-item'><span>%M</span> <p>Minutes</p> </div>" + "<div class='cd-item'><span>%S</span> <p>Seconds</p> </div>"));

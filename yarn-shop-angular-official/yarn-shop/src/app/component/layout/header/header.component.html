@@ -1,16 +1,11 @@
-<!-- Page Preloder -->
-<div id="preloder">
-  <div class="loader"></div>
-</div>
-
 <!-- Offcanvas Menu Begin -->
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
   <div class="offcanvas__option">
     <div class="offcanvas__links">
-      <a routerLink="/login">Sign in</a>
       <a href="#">FAQs</a>
       <a href="#">USD</a>
+      <a routerLink="/login">Sign in</a>
     </div>
   </div>
   <div class="offcanvas__nav__option">
@@ -39,9 +34,9 @@
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
             <div class="header__top__links">
-              <a href="#" routerLink="/login">Sign in</a>
-              <a href="#">FAQs</a>
-              <a href="#">USD</a>
+              <a *ngIf="nameAccount!=''">{{nameAccount}}</a>
+              <a href="#" *ngIf="!checkLogin" routerLink="/login">Sign in</a>
+              <a href="#" *ngIf="checkLogin" (click)="logOut()" routerLink="/login">Sign out</a>
             </div>
           </div>
         </div>
@@ -52,20 +47,20 @@
     <div class="row">
       <div class="col-lg-3 col-md-3" style="padding-right: 0">
         <div class="header__logo">
-          <a href="#"><img src="assets/img/logo.png" alt=""></a>
+          <a routerLink="/home"><img src="assets/img/logo.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Pages</a>
-              <ul class="dropdown">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Shop Details</a></li>
-                <li><a href="#">Check Out</a></li>
-                <li><a href="#">Blog Details</a></li>
+            <li routerLink="/home"><a>Home</a></li>
+            <li routerLink="/shop"><a>Shop</a></li>
+            <li><a>Explore</a>
+              <ul class="dropdown bg-light">
+                <li>About Us</li>
+                <li>Shop Details</li>
+                <li>Check Out</li>
+                <li>Blog Details</li>
               </ul>
             </li>
             <li><a href="#">Blog</a></li>
@@ -74,10 +69,10 @@
         </nav>
       </div>
       <div class="col-lg-3 col-md-3">
-        <div class="header__nav__option">
+        <div *ngIf="checkLogin" class="header__nav__option">
           <a href="#" class="search-switch"><img src="assets/img/icon/search.png" alt=""></a>
           <a href="#"><img src="assets/img/icon/heart.png" alt=""></a>
-          <a href="#"><img src="assets/img/icon/cart.png" alt=""> <span>0</span></a>
+          <a routerLink="/cart"><img src="assets/img/icon/cart.png" alt=""> <span>0</span></a>
           <div class="price">$0.00</div>
         </div>
       </div>

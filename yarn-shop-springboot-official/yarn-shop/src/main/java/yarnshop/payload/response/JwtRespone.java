@@ -1,7 +1,9 @@
-package com.project.be.payload.response;
+package yarnshop.payload.response;
 
-import com.project.be.model.account.Account;
+
 import org.springframework.security.core.GrantedAuthority;
+import yarnshop.model.account.Account;
+import yarnshop.model.customer.Customer;
 
 import java.util.Collection;
 
@@ -10,6 +12,16 @@ public class JwtRespone {
     private String token;
     private String type = "Bearer";
     private Account account;
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     private Collection<? extends GrantedAuthority> roles;
 
     public JwtRespone(String token, String type, Account account, Collection<? extends GrantedAuthority> roles) {

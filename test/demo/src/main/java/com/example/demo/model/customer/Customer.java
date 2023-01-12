@@ -1,13 +1,10 @@
-package yarnshop.model.customer;
+package com.example.demo.model.customer;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import yarnshop.model.account.Account;
-import yarnshop.model.payment.OrderDetail;
-import yarnshop.model.payment.Payment;
-import yarnshop.model.shipping.ShippingInformation;
+
+import com.example.demo.model.account.Account;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
 public class Customer {
@@ -35,14 +32,14 @@ public class Customer {
     @JoinColumn(name = "customerTypeId", referencedColumnName = "id")
     private CustomerType customerType;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<ShippingInformation> shippingInformationSet;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<Payment> payments;
-
-    @OneToMany (mappedBy = "customer")
-    private Set<OrderDetail> orderDetails;
+//    @OneToMany(mappedBy = "customer")
+//    private Set<ShippingInformation> shippingInformationSet;
+//
+//    @OneToMany(mappedBy = "customer")
+//    private Set<Payment> payments;
+//
+//    @OneToMany (mappedBy = "customer")
+//    private Set<OrderDetail> orderDetails;
 
     public Customer() {
     }
@@ -159,9 +156,9 @@ public class Customer {
         this.country = country;
     }
 
-    public Account getAccount() {
-        return account;
-    }
+//    public Account getAccount() {
+//        return account;
+//    }
 
     public void setAccount(Account account) {
         this.account = account;
@@ -175,27 +172,27 @@ public class Customer {
         this.customerType = customerType;
     }
 
-    public Set<ShippingInformation> getShippingInformationSet() {
-        return shippingInformationSet;
-    }
+//    public Set<ShippingInformation> getShippingInformationSet() {
+//        return shippingInformationSet;
+//    }
 
-    public void setShippingInformationSet(Set<ShippingInformation> shippingInformationSet) {
-        this.shippingInformationSet = shippingInformationSet;
-    }
-
-    public Set<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
+//    public void setShippingInformationSet(Set<ShippingInformation> shippingInformationSet) {
+//        this.shippingInformationSet = shippingInformationSet;
+//    }
+//
+//    public Set<Payment> getPayments() {
+//        return payments;
+//    }
+//
+//    public void setPayments(Set<Payment> payments) {
+//        this.payments = payments;
+//    }
+//
+//    public Set<OrderDetail> getOrderDetails() {
+//        return orderDetails;
+//    }
+//
+//    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+//        this.orderDetails = orderDetails;
+//    }
 }

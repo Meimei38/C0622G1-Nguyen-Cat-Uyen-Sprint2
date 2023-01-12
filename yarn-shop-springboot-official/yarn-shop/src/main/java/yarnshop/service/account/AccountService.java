@@ -1,14 +1,15 @@
-package com.project.be.service.account;
+package yarnshop.service.account;
 
-import com.project.be.model.account.Account;
-import com.project.be.repository.account.IAccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yarnshop.model.account.Account;
+import yarnshop.repository.IAccountRepository;
 
 import java.util.Optional;
 
 @Service
-public class AccountServiceImpl implements IAccountService {
+public class AccountService implements IAccountService {
 
     @Autowired
     private IAccountRepository accountRepository;

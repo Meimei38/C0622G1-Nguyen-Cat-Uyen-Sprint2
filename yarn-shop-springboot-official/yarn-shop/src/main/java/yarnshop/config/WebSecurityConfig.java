@@ -1,8 +1,4 @@
-package com.project.be.config;
-
-import com.project.be.security.jwt.JwtEntryPoint;
-import com.project.be.security.jwt.JwtTokenFilter;
-import com.project.be.security.user_detail.MyUserDetailServiceImpl;
+package yarnshop.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import yarnshop.security.jwt.JwtEntryPoint;
+import yarnshop.security.jwt.JwtTokenFilter;
+import yarnshop.security.user_detail.MyUserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
