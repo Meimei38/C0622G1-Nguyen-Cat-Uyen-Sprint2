@@ -11,8 +11,7 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer isDelete;
-    private String password;
-    private String username;
+    private String discountDescription;
     @JsonBackReference
     @OneToMany(mappedBy = "discount")
     private Set<Product> products;
@@ -36,20 +35,12 @@ public class Discount {
         this.isDelete = isDelete;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDiscountDescription() {
+        return discountDescription;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDiscountDescription(String discountDescription) {
+        this.discountDescription = discountDescription;
     }
 
     public Set<Product> getProducts() {

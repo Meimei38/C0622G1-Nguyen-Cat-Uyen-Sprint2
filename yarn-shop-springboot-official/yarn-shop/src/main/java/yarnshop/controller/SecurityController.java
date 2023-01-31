@@ -41,7 +41,7 @@ public class SecurityController {
         Account accountValidate = accountService.findAccountByUserName(signInForm.getUsername());
 
         if (accountValidate == null) {
-            return new ResponseEntity<>(new MessageRespone("username not found"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MessageRespone("Username not found"), HttpStatus.NOT_FOUND);
         }
 
         Authentication authentication = authenticationManager.authenticate(

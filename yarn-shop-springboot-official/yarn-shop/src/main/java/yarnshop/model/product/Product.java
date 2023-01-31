@@ -10,21 +10,29 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
     private String description;
     private Integer isDelete;
     private Integer weight;
+    private Double price;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "brandId", referencedColumnName = "id")
     private Brand brand;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private Category category;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "discountId", referencedColumnName = "id")
     private Discount discount;
+    @JsonBackReference
     @OneToMany(mappedBy = "product")
     private Set<Image> images;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "product")
     private Set<ProductDetail> productDetails;
 
@@ -99,7 +107,23 @@ public class Product {
         return productDetails;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setProductDetails(Set<ProductDetail> productDetails) {
         this.productDetails = productDetails;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

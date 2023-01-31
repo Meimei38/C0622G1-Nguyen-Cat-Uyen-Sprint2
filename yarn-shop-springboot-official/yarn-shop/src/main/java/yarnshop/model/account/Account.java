@@ -16,7 +16,7 @@ public class Account {
     private Integer isDelete;
     private Integer lockStatus;
     @JsonBackReference
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<AccountRole> accountRoles;
 
     @JsonBackReference

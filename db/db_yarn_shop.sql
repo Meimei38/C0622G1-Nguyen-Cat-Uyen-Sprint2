@@ -20,37 +20,29 @@ CREATE TABLE discount (
     end_date VARCHAR(255),
     is_delete INT
 );
-CREATE TABLE yarn_group (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(2),
-    description VARCHAR(255)
-);
+
 CREATE TABLE product (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    origin VARCHAR(255),
     brand_id INT,
     descriptions TEXT,
     is_delete INT,
     category_id INT,
     discount_id INT,
     weight INT,
-    yarn_group_id INT,
     FOREIGN KEY (category_id)
         REFERENCES category (id),
     FOREIGN KEY (brand_id)
         REFERENCES brand (id),
     FOREIGN KEY (discount_id)
-        REFERENCES discount (id),
-    FOREIGN KEY (yarn_group_id)
-        REFERENCES yarn_group (id)
+        REFERENCES discount (id)
 );
 CREATE TABLE image (
     id INT PRIMARY KEY AUTO_INCREMENT,
     image_url VARCHAR(255),
-    product_detail_id INT,
+    product_id INT,
     is_delete INT,
-    FOREIGN KEY (product_detail_id)
-        REFERENCES product_detail(id)
+    FOREIGN KEY (product_id)
+        REFERENCES product(id)
 );
 CREATE TABLE account (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -142,6 +134,16 @@ CREATE TABLE shipping_information (
     shipping_receiver VARCHAR(255),
     receiver_phone VARCHAR(255)
 );
+CREATE TABLE product_detail (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    color VARCHAR(50),
+    quantity INT,
+    delete_status BIT,
+    FOREIGN KEY (product_id)
+        REFERENCES product (id)
+);
+
 CREATE TABLE payment (
     id INT PRIMARY KEY AUTO_INCREMENT,
     payment_status INT,
@@ -167,15 +169,6 @@ CREATE TABLE order_detail (
         REFERENCES payment (id),
     FOREIGN KEY (product_detail_id)
         REFERENCES product_detail (id)
-);
-CREATE TABLE product_detail (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    product_id VARCHAR(50),
-    color VARCHAR(50),
-    quantity INT,
-    delete_status BIT,
-    FOREIGN KEY (product_id)
-        REFERENCES product (id)
 );
 
 

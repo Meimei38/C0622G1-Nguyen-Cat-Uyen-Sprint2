@@ -1,4 +1,5 @@
 package yarnshop.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +17,12 @@ import yarnshop.security.jwt.JwtEntryPoint;
 import yarnshop.security.jwt.JwtTokenFilter;
 import yarnshop.security.user_detail.MyUserDetailServiceImpl;
 
+//@EnableWebSecurity
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(
         prePostEnabled = true,
         securedEnabled = true,
-        jsr250Enabled = true
-)
+        jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -58,9 +58,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
 
+//                .authorizeRequests()
+//                .antMatchers("/**")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+
+
+//                .and()
                 .cors()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint())
+//                .and()
+//                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint())
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -68,3 +76,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
+
