@@ -12,10 +12,11 @@ public class ProductDetail {
     private String color;
     private Integer quantity;
     private Integer isDelete;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
-
+    @JsonBackReference
     @OneToOne(mappedBy = "productDetail")
     private OrderDetail orderDetail;
 

@@ -14,7 +14,7 @@ export interface Product {
   brand?: Brand;
   category?: Category;
   discount?: Discount;
-  image?: Image;
+  image?: Image[];
   productDetail?: ProductDetail;
 
 }

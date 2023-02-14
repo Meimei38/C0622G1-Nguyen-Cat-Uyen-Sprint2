@@ -1,8 +1,6 @@
 package yarnshop.model.payment;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import yarnshop.model.customer.Customer;
-import yarnshop.model.shipping.ShippingFee;
 import yarnshop.model.shipping.ShippingInformation;
 
 import javax.persistence.*;
@@ -18,9 +16,15 @@ public class Payment {
     private String dateCreated;
     private Integer isDelete;
 
-    @ManyToOne
-    @JoinColumn(name = "shippingFeeId", referencedColumnName = "id")
-    private ShippingFee shippingFee;
+   private Integer shippingFee;
+
+    public Integer getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(Integer shippingFee) {
+        this.shippingFee = shippingFee;
+    }
 
     @OneToOne
     @JoinColumn(name = "shippingInformationId", referencedColumnName = "id")
@@ -67,13 +71,7 @@ public class Payment {
         this.dateCreated = dateCreated;
     }
 
-    public ShippingFee getShippingFee() {
-        return shippingFee;
-    }
 
-    public void setShippingFee(ShippingFee shippingFee) {
-        this.shippingFee = shippingFee;
-    }
 
     public ShippingInformation getShippingInformation() {
         return shippingInformation;

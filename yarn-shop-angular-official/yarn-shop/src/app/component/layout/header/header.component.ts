@@ -3,6 +3,7 @@ import {Customer} from "../../../model/customer/customer";
 import {TokenService} from "../../../service/token.service";
 import {Router} from "@angular/router";
 import {Account} from "../../../model/account/account";
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -15,19 +16,18 @@ export class HeaderComponent implements OnInit {
   currentUser: Account;
   accountRole: string;
 
+  sum: string;
+
   constructor(private tokenService: TokenService,
-              private router: Router) {
+              private router: Router,
+              private _cartService: CartService) {
   }
 
   ngOnInit(): void {
     if (this.tokenService.isLogged()) {
       this.checkLogin = true;
-
       this.currentUser = JSON.parse(this.tokenService.getAccount());
-      console.log('hehhe' + this.currentUser);
-
       this.nameAccount = this.currentUser.username;
-      console.log('tên' + this.nameAccount);
       const roles = this.tokenService.getRole();
 
       for (let i = 0; i < roles.length; i++) {
@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
           this.accountRole = 'ROLE_ADMIN';
         }
       }
+
     }
   }
 

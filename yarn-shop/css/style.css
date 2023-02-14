@@ -1737,6 +1737,8 @@ ol {
 .product__details__option__color label input {
 	position: absolute;
 	visibility: hidden;
+
+
 }
 
 .product__details__cart__option {

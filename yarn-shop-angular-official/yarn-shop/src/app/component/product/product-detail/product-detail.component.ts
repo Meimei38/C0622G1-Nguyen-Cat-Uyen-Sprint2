@@ -1,15 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as $ from "jquery";
+import {ActivatedRoute} from "@angular/router";
+import {ProductDetailService} from "../../../service/product-detail.service";
+import {ProductDetail} from "../../../model/product-detail";
+import {ProductService} from "../../../service/product.service";
+import {Product} from "../../../model/product/product";
+import {ProductDto} from "../../../dto/product-dto";
+import {Image} from "../../../model/image";
+import {OrderDetail} from "../../../model/order-detail";
+import {OrderDetailService} from 'src/app/service/order-detail.service';
+import {TokenService} from "../../../service/token.service";
+import {Account} from "../../../model/account/account";
+
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  idProduct: number;
+  product: ProductDto;
+  productDetails: ProductDetail[];
+  imageList: Image[];
+  position: number = 0;
+  productDetailId: number;
+  quantity: number = 1;
 
-  constructor() { }
+  accountId: number;
+  account: Account;
+
+  constructor(private _activatedRoute: ActivatedRoute,
+              private _productDetailService: ProductDetailService,
+              private _productService: ProductService,
+              private _orderDetailService: OrderDetailService,
+              private _tokenService: TokenService) {
+  }
 
   ngOnInit(): void {
+    this.idProduct = this._activatedRoute.snapshot.params.productId;
+    this._productService.findProductByProductId(this.idProduct).subscribe(data => {
+      this.product = data;
+    })
+    this._productDetailService.findProductDetailByProductId(this.idProduct).subscribe(data => {
+      this.productDetails = data;
+    })
+    this._productDetailService.findImagesByProductId(this.idProduct).subscribe(data => {
+      this.imageList = data;
+    })
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
     proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
@@ -52,6 +89,35 @@ export class ProductDetailComponent implements OnInit {
       }
       $button.parent().find('input').val(newVal);
     });
+
+
   }
 
+
+  checkPosition(i: number) {
+    this.position = i;
+  }
+
+
+  check(evt) {
+    let target = evt.target;
+    if (target.checked) {
+      this.productDetailId = target.value;
+      $("#quantity").val(1);
+    }
+  }
+
+  addOrderDetail() {
+    this.account = JSON.parse(this._tokenService.getAccount());
+    this.accountId = this.account.id;
+    this.checkQuantity();
+    this._orderDetailService.checkAndAddOrderDetail(this.productDetailId, this.accountId, this.quantity).subscribe(data => {
+      console.log(data);
+    })
+  }
+
+  checkQuantity() {
+    this.quantity = parseInt($("#quantity").val()+'');
+    console.log(this.quantity);
+  }
 }
