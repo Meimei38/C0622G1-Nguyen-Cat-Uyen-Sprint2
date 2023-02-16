@@ -3,6 +3,8 @@ package yarnshop.dto;
 public interface OrderDetailDto {
     String getOrderId();
 
+    String getProductIdDetail();
+
     String getOrderQuantity();
 
     String getImageUrl();
@@ -20,6 +22,7 @@ public interface OrderDetailDto {
     String getDiscountId();
 
     String getDiscountDescription();
+
     String getProductWeight();
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import yarnshop.model.payment.OrderDetail;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class ProductDetail {
@@ -17,8 +18,8 @@ public class ProductDetail {
     @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
     @JsonBackReference
-    @OneToOne(mappedBy = "productDetail")
-    private OrderDetail orderDetail;
+    @OneToMany(mappedBy = "productDetail")
+    private Set<OrderDetail> orderDetails;
 
     public ProductDetail() {
     }
@@ -63,11 +64,11 @@ public class ProductDetail {
         this.product = product;
     }
 
-    public OrderDetail getOrderDetail() {
-        return orderDetail;
+    public Set<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setOrderDetail(OrderDetail orderDetail) {
-        this.orderDetail = orderDetail;
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

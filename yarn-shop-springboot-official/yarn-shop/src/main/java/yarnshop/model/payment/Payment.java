@@ -1,5 +1,6 @@
 package yarnshop.model.payment;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import yarnshop.model.customer.Customer;
 import yarnshop.model.shipping.ShippingInformation;
 
@@ -25,14 +26,16 @@ public class Payment {
     public void setShippingFee(Integer shippingFee) {
         this.shippingFee = shippingFee;
     }
-
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "shippingInformationId", referencedColumnName = "id")
     private ShippingInformation shippingInformation;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
+    @JsonBackReference
     @OneToMany(mappedBy = "payment")
     private Set<OrderDetail> orderDetailSet;
 

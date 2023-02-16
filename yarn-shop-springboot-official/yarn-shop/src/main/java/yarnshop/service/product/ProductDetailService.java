@@ -21,4 +21,9 @@ public class ProductDetailService implements IProductDetailService{
     public ProductDetail findByProductDetailId(String productDetailId) {
         return productDetailRepository.findByProductDetailId(productDetailId);
     }
+
+    @Override
+    public void saveProductDetail(ProductDetail productDetail) {
+        productDetailRepository.save(productDetail);
+    }
 }

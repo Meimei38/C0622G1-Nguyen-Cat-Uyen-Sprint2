@@ -6,8 +6,9 @@ import {ProductDetail} from "../../../model/product-detail";
 import {OrderDetailDto} from "../../../dto/order-detail-dto";
 import {OrderDetailService} from 'src/app/service/order-detail.service';
 import {Payment} from "../../../model/payment";
-import { ActivatedRoute, Router } from '@angular/router';
-import { PaymentService } from 'src/app/service/payment.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PaymentService} from 'src/app/service/payment.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit {
   orderListId: number [] = [];
   checkedAll: boolean;
   total: number;
-
+  payment: Payment;
 
   constructor(private _tokenService: TokenService,
               private _cartService: CartService,
@@ -35,6 +36,8 @@ export class CartComponent implements OnInit {
     this.account = JSON.parse(this._tokenService.getAccount());
     this._cartService.getCustomerByAccount(this.account.id).subscribe(data => {
       this.cartList = data;
+      console.log(this.cartList);
+      this.countSum(this.orderListId);
     });
   }
 
@@ -43,8 +46,9 @@ export class CartComponent implements OnInit {
     let quantity = parseInt($('#quantity' + id).val() + '');
     quantity += 1;
     $('#quantity' + id).val(quantity);
+    let orderDetailId = this.cartList[id].orderId;
+    this.updateQuantity(orderDetailId, quantity+'');
     this.calculateMoney(id, price, quantity + '');
-    this.sum += parseFloat(price);
   }
 
 
@@ -52,8 +56,9 @@ export class CartComponent implements OnInit {
     let quantity = parseInt($('#quantity' + id).val() + '');
     quantity -= 1;
     $('#quantity' + id).val(quantity);
+    let orderDetailId = this.cartList[id].orderId;
+    this.updateQuantity(orderDetailId, quantity+'');
     this.calculateMoney(id, price, quantity + '');
-    this.sum -= parseFloat(price);
   }
 
   calculateMoney(id: number, price: String, quantity: string) {
@@ -67,26 +72,20 @@ export class CartComponent implements OnInit {
   }
 
   countSum(orderListId: number[]) {
-    // this.sum = 0;
-    // for (let i = 0; i < this.cartList.length; i++) {
-    //   let number = parseInt($('#quantity' + i).val() + '');
-    //   this.sum += number * parseFloat(<string>this.cartList[i].productPrice);
-    // }
     let tempt = 0;
     for (const item of this.cartList) {
       if (orderListId.includes(item.orderId, 0)) {
         tempt += parseFloat(<string>item.productPrice) * parseFloat(<string>item.orderQuantity);
       }
-      console.log(this.orderListId);
-      console.log(this.cartList);
     }
     this.sum = tempt;
-
   }
 
 
   updateMoney(i: number, productPrice: String, quantity: string) {
+    let orderDetailId = this.cartList[i].orderId;
     this.calculateMoney(i, productPrice, quantity);
+    this.updateQuantity(orderDetailId, quantity);
   }
 
 
@@ -94,8 +93,6 @@ export class CartComponent implements OnInit {
     const index = this.orderListId.indexOf(orderId, 0);
     index > -1 ? this.orderListId.splice(index, 1) : this.orderListId.push(orderId);
     this.countSum(this.orderListId);
-    console.log(this.orderListId);
-    console.log(orderId);
   }
 
   addAll() {
@@ -120,7 +117,6 @@ export class CartComponent implements OnInit {
       }
     }
     this.countSum(this.orderListId);
-    console.log(this.orderListId);
   }
 
   createPayment() {
@@ -137,9 +133,30 @@ export class CartComponent implements OnInit {
       shippingFee = 3;
     }
     let customerId = this.cartList[0].customerId;
-    let dateCreated = new Date().toLocaleString();
-    this._paymentService.getPayment(this.orderListId, customerId, dateCreated, shippingFee).subscribe(data=> {
-      console.log(data);
+    let dateCreated = new Date().toISOString();
+    let totalBill = (this.sum + shippingFee).toFixed(2);
+    this.total = parseFloat(totalBill);
+    this._paymentService.getPayment(this.total, this.orderListId, customerId, dateCreated, shippingFee).subscribe(data => {
+      this.payment = data;
+      this._router.navigateByUrl("check-out?paymentId=" + this.payment.id);
+
+    })
+  }
+
+  delete(orderId: number) {
+    this._orderDetailService.deleteOrder(orderId).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Successfully Deleted',
+        text: 'Product Successfully Deleted',
+      });
+      this.ngOnInit();
+    })
+  }
+
+  private updateQuantity(orderDetailId: number, quantity: string) {
+    this._orderDetailService.updateOrderQuantity(orderDetailId, quantity).subscribe(() => {
+      this.ngOnInit();
     })
   }
 }

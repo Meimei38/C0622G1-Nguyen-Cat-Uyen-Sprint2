@@ -12,15 +12,19 @@ public class OrderDetail {
     private Integer id;
     private Integer quantity;
     private Integer isDelete;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "paymentId", referencedColumnName = "id")
     private Payment payment;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 
-    @OneToOne
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "productDetailId", referencedColumnName = "id")
     private ProductDetail productDetail;
 

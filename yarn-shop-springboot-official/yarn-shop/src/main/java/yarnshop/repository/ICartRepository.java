@@ -16,7 +16,7 @@ public interface ICartRepository extends JpaRepository<OrderDetail, Integer> {
     @Query(value = "select order_detail.id as orderId, order_detail.quantity as orderQuantity, " +
             "order_detail.customer_id as customerId, product_detail.quantity as totalQuantity, " +
             "product_detail.color as productColor, product.name as productName, " +
-            "product.price as productPrice, product.weight as productWeight, " +
+            "product.price as productPrice, product.weight as productWeight, product.id as productIdDetail, " +
             "product.discount_id as discountId, " +
             "discount.discount_description as discountDescription," +
             "image.image_url as imageUrl " +
@@ -27,7 +27,7 @@ public interface ICartRepository extends JpaRepository<OrderDetail, Integer> {
             "join customer on order_detail.customer_id = customer.id " +
             "join account on customer.account_id = account.id" +
             " join image on product.id = image.product_id" +
-            " where account.id =:account_id" +
+            " where account.id =:account_id and order_detail.is_delete = 0" +
             " group by order_detail.id", nativeQuery = true)
     List<OrderDetailDto> findOrderDetailList(@Param("account_id") String accountId);
 //    @Query(value = "select order_detail.* from order_detail\n" +

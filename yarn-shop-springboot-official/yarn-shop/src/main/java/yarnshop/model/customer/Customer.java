@@ -19,7 +19,7 @@ public class Customer {
     private String email;
     private String firstName;
     private String lastName;
-    private String gender;
+    private Integer gender;
     private String idCard;
     private String phone;
     private String addressDetail;
@@ -27,20 +27,25 @@ public class Customer {
     private String district;
     private String city;
     private String country;
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customerTypeId", referencedColumnName = "id")
     private CustomerType customerType;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer")
     private Set<ShippingInformation> shippingInformationSet;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer")
     private Set<Payment> payments;
 
+    @JsonBackReference
     @OneToMany (mappedBy = "customer")
     private Set<OrderDetail> orderDetails;
 
@@ -95,11 +100,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

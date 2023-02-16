@@ -23,6 +23,7 @@ public class Employee {
     private String district;
     private String city;
     private String country;
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;

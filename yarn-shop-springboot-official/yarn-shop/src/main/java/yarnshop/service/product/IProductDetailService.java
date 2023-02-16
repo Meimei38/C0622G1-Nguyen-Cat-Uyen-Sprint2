@@ -8,4 +8,6 @@ public interface IProductDetailService {
     List<ProductDetail> findByProductId(String productId);
 
     ProductDetail findByProductDetailId(String productDetailId);
+
+    void saveProductDetail(ProductDetail productDetail);
 }

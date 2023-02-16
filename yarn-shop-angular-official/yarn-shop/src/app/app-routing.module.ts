@@ -8,6 +8,7 @@ import {CartComponent} from "./component/product/cart/cart.component";
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import {AuthGuardGuard} from "./guard/auth-guard.guard";
 import {LoginGuard} from "./guard/login.guard";
+import {PaymentCheckComponent} from "./component/payment-check/payment-check.component";
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path:'shop', component: ShopComponent},
   {path:'product-detail/:productId', component: ProductDetailComponent},
   {path:'cart', component: CartComponent, canActivate:[AuthGuardGuard]},
-  {path:'check-out', component: CheckoutComponent, canActivate:[AuthGuardGuard]}
+  {path:'check-out', component: CheckoutComponent, canActivate:[AuthGuardGuard]},
+  {path:'payment-check', component: PaymentCheckComponent, canActivate:[AuthGuardGuard]}
 ];
 
 @NgModule({

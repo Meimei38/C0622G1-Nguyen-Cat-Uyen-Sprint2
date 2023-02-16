@@ -21,99 +21,84 @@
 <section class="checkout spad">
   <div class="container">
     <div class="checkout__form">
-      <form action="#">
+      <form [formGroup]="shippingInformation" (ngSubmit)="submit()">
         <div class="row">
           <div class="col-lg-8 col-md-6">
-            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="./shopping-cart.html" class="text-danger">Click
-              here</a> to enter your code</h6>
-            <h6 class="checkout__title">Billing Details</h6>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Fist Name<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Last Name<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-            </div>
-            <div class="checkout__input">
-              <p>Ward<span>*</span></p>
-              <input placeholder="Ward" type="text">
-            </div>
-            <div class="checkout__input">
-              <p>District<span>*</span></p>
-              <input placeholder="District" type="text">
-            </div>
-            <div class="checkout__input">
-              <p>City<span>*</span></p>
-              <input placeholder="City" type="text">
-            </div>
-            <div class="checkout__input">
-              <p>Country<span>*</span></p>
-              <input placeholder="Country" type="text">
-            </div>
-            <div class="checkout__input">
-              <p>Address<span>*</span></p>
-              <input type="text" placeholder="Street Address" class="checkout__input__add">
-            </div>
-            <div class="checkout__input">
-              <p>Postcode / ZIP<span>*</span></p>
-              <input placeholder="Postcode" type="text">
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Phone<span>*</span></p>
-                  <input placeholder="Phone number" type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Email<span>*</span></p>
-                  <input placeholder="Email address" type="text">
-                </div>
-              </div>
-            </div>
+            <h6 class="checkout__title">Shipping Information</h6>
             <div class="checkout__input__checkbox">
-              <label for="diff-acc">
-                Note about your order, e.g, special note for delivery
-                <input type="checkbox" id="diff-acc">
+              <label for="selection">
+                Use your default information for shipping
+                <input type="checkbox" id="selection" [checked]="default" (click)="selectShipping()">
                 <span class="checkmark"></span>
               </label>
             </div>
-            <div class="checkout__input">
-              <p>Order notes<span>*</span></p>
-              <input type="text"
-                     placeholder="Notes about your order, e.g. special notes for delivery.">
-            </div>
+              <div class="default" >
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="checkout__input">
+                      <p>Shipping Receiver<span>*</span></p>
+                      <input formControlName="shippingReceiver" placeholder="Receiver name" type="text" id="receiver-name" class="checkout_input"  [readOnly]="default==true"
+                             [ngClass]="(shippingInformation.controls['shippingReceiver'].touched)&&shippingInformation.controls['shippingReceiver'].value== null? shippingInformation.controls['shippingReceiver'].invalid?'is-invalid':'is-valid':''">
+                      <div class="invalid-feedback">
+                        <div *ngIf="shippingInformation.controls['shippingReceiver'].hasError('required') && (shippingInformation.controls['shippingReceiver'].touched)">
+                          Required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="checkout__input">
+                  <p>Address<span>*</span></p>
+                  <input formControlName="shippingAddress" id="shippingAddress" placeholder="Detail Address"  class="checkout_input" type="text" [readOnly]="default==true"
+                         [ngClass]="(shippingInformation.controls['shippingAddress'].touched)&&shippingInformation.controls['receiverPhone'].value== null? shippingInformation.controls['shippingAddress'].invalid?'is-invalid':'is-valid':''">
+                  <div class="invalid-feedback">
+                    <div *ngIf="shippingInformation.controls['shippingAddress'].hasError('required') && (shippingInformation.controls['shippingAddress'].touched)">
+                      Required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="checkout__input">
+                      <p>Receiver Phone<span>*</span></p>
+                      <input formControlName="receiverPhone" id="receiverPhone" placeholder="Phone number"  class="checkout_input" type="text" [readOnly]="default==true"
+                      [ngClass]="(shippingInformation.controls['receiverPhone'].touched)&&shippingInformation.controls['receiverPhone'].value== null? shippingInformation.controls['receiverPhone'].invalid?'is-invalid':'is-valid':''">
+                      <div class="invalid-feedback">
+                        <div *ngIf="shippingInformation.controls['receiverPhone'].hasError('required') && (shippingInformation.controls['receiverPhone'].touched)">
+                          Required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="order_note">
+                <div class="checkout__input__checkbox">
+                  <label for="diff-acc">
+                    Note about your order, e.g, special note for delivery
+                    <input type="checkbox" id="diff-acc" [checked]="note" (click)="orderNote()">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="checkout__input"  [hidden]="note==false">
+                  <p>Order notes</p>
+                  <input type="text"
+                         placeholder="Notes about your order, e.g. special notes for delivery.">
+                </div>
+              </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="checkout__order">
               <h4 class="order__title">Your order</h4>
               <div class="checkout__order__products">Product <span>Total</span></div>
-              <ul class="checkout__total__products">
-                <li>01. DROPS Air <span>$4.24</span></li>
-                <li>02. DROPS Alaska <span>$6.24</span></li>
-                <li>03. DROPS Alpaca <span>$3.48</span></li>
-                <li>04. DROPS Alpaca Bouclé <span>$6.09</span></li>
+              <ul class="checkout__total__products" *ngFor="let item of orderDetailDtoList, let i = index">
+                <li>{{i+1}} {{item.productName}} <span>{{(item.productPrice*item.orderQuantity)|currency:"USD"}}</span></li>
               </ul>
               <ul class="checkout__total__all">
-                <li>Subtotal <span>$20.05</span></li>
-                <li>Shipping fee <span>$5.00</span></li>
-                <li>Total <span>$25.05</span></li>
+                <li>Subtotal <span>{{(payment.totalBill - payment.shippingFee)|currency:"USD"}}</span></li>
+                <li>Shipping fee <span>{{payment.shippingFee|currency:"USD"}}</span></li>
+                <li>Total <span>{{payment.totalBill|currency:"USD"}}</span></li>
               </ul>
-              <div class="checkout__input__checkbox">
-                <label for="payment">
-                  Check Payment
-                  <input type="checkbox" id="payment">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
               <div class="checkout__input__checkbox">
                 <label for="paypal">
                   Paypal
@@ -121,7 +106,12 @@
                   <span class="checkmark"></span>
                 </label>
               </div>
-              <button type="submit" class="site-btn">PLACE ORDER</button>
+              <button  type="submit" [disabled]="!shippingInformation.valid" class="site-btn">PLACE ORDER</button>
+              <button  routerLink="/cart" type="button" class="site-btn">BACK TO CART</button>
+              <div class="row">
+                <div class="col-lg-12" id="paypalBtn">
+                </div>
+              </div>
             </div>
           </div>
         </div>

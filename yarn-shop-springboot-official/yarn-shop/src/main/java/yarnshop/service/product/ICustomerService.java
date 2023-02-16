@@ -6,4 +6,6 @@ import yarnshop.model.customer.Customer;
 
 public interface ICustomerService  {
     Customer findCustomerByAccountId(String accountId);
+
+    Customer findCustomerById(Integer customerId);
 }

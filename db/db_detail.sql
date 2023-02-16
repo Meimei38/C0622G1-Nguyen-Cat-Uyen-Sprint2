@@ -23,6 +23,12 @@ INSERT INTO `yarn_shop_data`.`image` (`image_url`, `product_id`) VALUES ('https:
 INSERT INTO `yarn_shop_data`.`image` (`image_url`, `product_id`) VALUES ('https://images.garnstudio.com/img/shademap/air/drops-air4.jpg', '1');
 INSERT INTO `yarn_shop_data`.`image` (`image_url`, `product_id`) VALUES ('https://images.garnstudio.com/img/shademap/air/drops-air5.jpg', '1');
 
+-- nhập dữ liệu shipping fee
+INSERT INTO `yarn_shop_data`.`shipping_fee` (`id`, `fee`) VALUES ('1', '1');
+INSERT INTO `yarn_shop_data`.`shipping_fee` (`id`, `fee`) VALUES ('2', '2');
+INSERT INTO `yarn_shop_data`.`shipping_fee` (`id`, `fee`) VALUES ('3', '3');
+ 
+
 
 select order_detail.id, 
 order_detail.quantity as order_quantity, 
@@ -42,3 +48,10 @@ select * from image where product_id = 1 and is_delete = 0;
 select customer.* from customer
 join account on customer.account_id = account.id
 where account.id = 1;
+
+select order_detail.id as orderId, order_detail.quantity as orderQuantity, order_detail.customer_id as customerId, product_detail.quantity as totalQuantity, product_detail.color as productColor, product.name as productName, product.price as productPrice, product.weight as productWeight, product.discount_id as discountId, discount.discount_description as discountDescription,image.image_url as imageUrl from order_detail 
+join product_detail on order_detail.product_detail_id = product_detail.id
+join product on product_detail.product_id = product.id
+join discount on product.discount_id = discount.id join customer on order_detail.customer_id = customer.id join account on customer.account_id = account.id join image on product.id = image.product_id where account.id =1shipping_fee group by order_detail.id;
+
+

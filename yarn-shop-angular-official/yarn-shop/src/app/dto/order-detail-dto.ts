@@ -1,5 +1,6 @@
 export interface OrderDetailDto {
   orderId: number;
+  productIdDetail: String;
   orderQuantity: String;
   customerId: String;
   totalQuantity: String;

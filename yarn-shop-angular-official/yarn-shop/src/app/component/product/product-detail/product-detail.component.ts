@@ -11,6 +11,7 @@ import {OrderDetail} from "../../../model/order-detail";
 import {OrderDetailService} from 'src/app/service/order-detail.service';
 import {TokenService} from "../../../service/token.service";
 import {Account} from "../../../model/account/account";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
 
   accountId: number;
   account: Account;
+  productQuantity: number;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _productDetailService: ProductDetailService,
@@ -43,10 +45,14 @@ export class ProductDetailComponent implements OnInit {
     })
     this._productDetailService.findProductDetailByProductId(this.idProduct).subscribe(data => {
       this.productDetails = data;
+      this.productDetailId = parseInt(<string>this.productDetails[0].id);
+      this.productQuantity = parseInt(<string>this.productDetails[0].quantity);
+      console.log(this.productQuantity);
     })
     this._productDetailService.findImagesByProductId(this.idProduct).subscribe(data => {
       this.imageList = data;
     })
+    $("#quantity").val(1);
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
     proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
@@ -76,7 +82,7 @@ export class ProductDetailComponent implements OnInit {
       var oldValue = $button.parent().find('input').val();
       console.log(oldValue)
       if ($button.hasClass('inc')) {
-        // @ts-ignore
+          // @ts-ignore
         var newVal = parseFloat(oldValue) + 1;
       } else {
         // Don't allow decrementing below zero
@@ -89,8 +95,6 @@ export class ProductDetailComponent implements OnInit {
       }
       $button.parent().find('input').val(newVal);
     });
-
-
   }
 
 
@@ -103,17 +107,38 @@ export class ProductDetailComponent implements OnInit {
     let target = evt.target;
     if (target.checked) {
       this.productDetailId = target.value;
+      for (let i = 0; i < this.productDetails.length; i++) {
+        if (this.productDetails[i].id == this.productDetailId +''){
+          this.productQuantity = parseInt(<string>this.productDetails[i].quantity);
+        }
+      }
+      console.log(this.productQuantity);
       $("#quantity").val(1);
     }
   }
 
   addOrderDetail() {
-    this.account = JSON.parse(this._tokenService.getAccount());
-    this.accountId = this.account.id;
-    this.checkQuantity();
-    this._orderDetailService.checkAndAddOrderDetail(this.productDetailId, this.accountId, this.quantity).subscribe(data => {
-      console.log(data);
-    })
+    let orderQuantity = $('#quantity').val();
+    if (this.productQuantity < orderQuantity){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Order quantity is out of product quantity range, please try again',
+      });
+      $('#quantity').val(this.productQuantity);
+    }else {
+      this.account = JSON.parse(this._tokenService.getAccount());
+      this.accountId = this.account.id;
+      this.checkQuantity();
+      this._orderDetailService.checkAndAddOrderDetail(this.productDetailId, this.accountId, this.quantity).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully Added',
+          text: 'Product Successfully Added',
+        });
+        this.ngOnInit();
+      })
+    }
   }
 
   checkQuantity() {

@@ -3,11 +3,17 @@ export interface Customer {
   firstName?: string;
   lastName?: string;
   phone?: string;
-  address?: string;
+  addressDetail?: string;
   email?: string;
-  birthDay?: string;
+  dateOfBirth?: string;
   idCard?: string;
   isDelete?: string;
   userType?: string;
   account?: Account;
+  gender?: number;
+  ward?: string;
+  district?: string;
+  city?: string;
+  country?: string;
+
 }

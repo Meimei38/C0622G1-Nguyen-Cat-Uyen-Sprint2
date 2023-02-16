@@ -5,8 +5,8 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="product__details__breadcrumb">
-            <a href="home.html">Home</a>
-            <a href="./shop.html">Shop</a>
+            <a routerLink="/home">Home</a>
+            <a routerLink="/shop">Shop</a>
             <span>Product Details</span>
           </div>
         </div>
@@ -53,7 +53,7 @@
                 <span>Color:</span>
                 <ng-container *ngFor="let item of productDetails, let i = index">
                   <label [style.background]="item.color" for="sp-{{i}}">
-                    <input type="radio" name="color" (change)="check($event)"  value="{{item.id}}" id="sp-{{i}}">
+                    <input type="radio" [checked]="i==0" name="color" (change)="check($event)" value="{{item.id}}" id="sp-{{i}}">
                   </label>
                 </ng-container>
               </div>
@@ -61,10 +61,11 @@
             <div class="product__details__cart__option">
               <div class="quantity">
                 <div class="pro-qty">
-                  <input type="text"  id="quantity" >
+                  <input min="1" max="{{productQuantity}}"  type="number" id="quantity" >
                 </div>
               </div>
-              <a class="primary-btn text-light" (click)="addOrderDetail()">Add to cart</a>
+              <p>Quantity: {{productQuantity}}</p>
+              <a class="primary-btn text-light cursor" (click)="addOrderDetail()">Add to cart</a>
             </div>
 
           </div>

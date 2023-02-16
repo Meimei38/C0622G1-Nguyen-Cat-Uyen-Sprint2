@@ -22,7 +22,8 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="shopping__cart__table">
-          <table id="tableList">
+          <h4 class="text-danger" [hidden]="cartList">Cart is empty! Let's shopping!</h4>
+          <table id="tableList" [hidden]="!cartList">
             <thead>
             <tr>
               <th style="padding-right: 15px" class="cursor" title="Check all" (click)="addAll()"><i class="fa-regular fa-square-check"></i></th>
@@ -39,7 +40,7 @@
                   <input  (click)="addToPayment(item.orderId)"  [checked]="orderListId.includes(item.orderId)" style="width: 14px; height: 14px" type="checkbox">
                 </td>
                 <td class="product__cart__item">
-                  <a href="#">
+                  <a [routerLink]="['/product-detail', item.productIdDetail]">
                     <div class="product__cart__item__pic">
                       <img width="90px" height="90px" src="{{item.imageUrl}}" alt="">
                     </div>
@@ -64,7 +65,7 @@
                 </td>
                 <td class="cart__price"><span>&#36;</span><span
                   id="total{{i}}">{{(item.productPrice * item.orderQuantity).toFixed(2)}}</span></td>
-                <td class="cart__close"><i class="fa fa-close"></i></td>
+                <td class="cart__close cursor" (click)="delete(item.orderId)"><i class="fa fa-close"></i></td>
               </tr>
             </ng-container>
             </tbody>
@@ -76,27 +77,15 @@
               <a routerLink="/shop">Continue Shopping</a>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn update__btn">
-              <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
-          <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
-        </div>
         <div class="cart__total">
           <h6>Cart total</h6>
           <ul>
             <li>Total <span>{{sum|currency:"USD"}}</span></li>
           </ul>
-          <a class="primary-btn" (click)="createPayment()">Proceed to checkout</a>
+          <a class="primary-btn text-light cursor" (click)="createPayment()">Proceed to checkout</a>
         </div>
       </div>
     </div>
